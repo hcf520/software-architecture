@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unisoc.mapper.RoleMapper">
+
+	<resultMap type="com.unisoc.entity.Role" id="roleMap">
+		<id property="roleId" column="roleId" />
+		<result property="roleName" column="role_name" />
+		<result property="description" column="description" />
+		<result property="status" column="status" />
+        
+		<collection  property="permissionsList"  ofType="com.unisoc.entity.Permissions">
+			<id property="permissionsId" column="permissionsId" />
+			<result property="permissionsName" column="permissions_name" />
+			<result property="controlArea" column="control_area" /> 
+			<result property="uri" column="URI" /> 
+			<result property="parentPermissionid" column="parent_permissionId" />  
+			<result property="status" column="status" />  
+			<result property="description" column="description" /> 
+		</collection>
+	</resultMap>
+	
+	<select id="queryAllRoleAndPermissions" resultMap="roleMap">
+        select 
+            * 
+        from 
+            sys_role r
+        inner join  
+            sys_role_permissions srp
+        on
+            r.roleId=srp.roleId
+        inner join
+            sys_permissions p
+        on
+            srp.permissionsId=p.permissionsId
+         WHERE r.roleId=${roleId}
+    </select>
+</mapper>
