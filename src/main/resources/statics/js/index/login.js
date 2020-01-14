@@ -3,7 +3,7 @@ var login = function(value) {
 	$.post("/user/login", value, function(data, status) {
 		if(data.code==200){
 			console.log("登录成功信息："+JSON.stringify(data) + "->" + status);
-//			window.location.href='http://localhost/index.html'
+			window.location.href='http://localhost:8085/user/home'
 		}else{
 			console.log("错误信息："+data.msg);
 			console.log("错误信息："+JSON.stringify(data));
