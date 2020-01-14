@@ -121,13 +121,14 @@ public class WebViewConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(loginInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/**","/"); // 拦截的路径
+		registry.addInterceptor(loginInterceptor()).addPathPatterns("/**")
+		.excludePathPatterns("/user/**","/").excludePathPatterns("/swagger-ui.html")
+        .excludePathPatterns("/swagger-resources/**")
+        .excludePathPatterns("/error")
+        .excludePathPatterns("/webjars/**"); // 拦截的路径
 		// .excludePathPatterns("/user/**", "/", "/statics/**",
 		// "/favicon.ico","/public/**"); // 放行的路径
-		registry.addInterceptor(authenticationInterceptor()).addPathPatterns("/**"); // 拦截所有请求，通过判断是否有
-																						// @LoginRequired
-																						// 注解
-																						// 决定是否需要登录
+		registry.addInterceptor(authenticationInterceptor()).addPathPatterns("/**"); // 拦截所有请求，通过判断是否有 TokenPermissions注解决定是否需要登录
 	}
 
 	@Bean
